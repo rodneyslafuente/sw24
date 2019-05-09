@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td>{{ grandtotal }}</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for stock in stocks %}
+                {% if stock["SUM(shares)"] != 0: %}
+                <tr>
+                    <td>{{ stock["symbol"] }}</td>
+                    <td>{{ quotes[stocks.index(stock)]["name"] }}</td>
+                    <td>{{ stock["SUM(shares)"] }}</td>
+                    <td>{{ quotes[stocks.index(stock)]["price"] }}</td>
+                    <td>{{ totals[stocks.index(stock)] }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+                <tr>
+                    <td colspan="1">CASH</td>
+                    <td colspan="3"></td>
+                    <td>{{ cash }}</td>
+                </tr>
+        </tbody>
+    </table>
+{% endblock %}
