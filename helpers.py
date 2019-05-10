@@ -43,7 +43,7 @@ def businesses(longitude, latitude):
 
 
     # Maximum number of results to return
-    SEARCH_LIMIT = 5
+    SEARCH_LIMIT = 20
 
     # Business search end point
     url = 'https://api.yelp.com/v3/businesses/search'
