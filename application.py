@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, businesses, coordinates
+from helpers import apology, businesses
 
 import json
 
@@ -31,9 +31,7 @@ def index():
     else:
        ip = request.remote_addr
 
-    info = coordinates(ip)
-
-    return render_template("test.html", businesses=businesses(), info=info)
+    return render_template("test.html", businesses=businesses(ip))
 
 
 def errorhandler(e):

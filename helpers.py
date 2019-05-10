@@ -19,15 +19,13 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
-def coordinates(ip):
+def user_info(ip):
 
     # Developer API key
     API_KEY= "e7d27372397245e956a5f33fe266d281"
 
-
     # location search end point
     url = 'http://api.ipstack.com/' + ip + '?access_key=' + API_KEY
-
 
     # Call the API
     response = requests.request('GET', url)
@@ -35,16 +33,20 @@ def coordinates(ip):
     return response.json()
 
 
-def businesses():
+def businesses(ip):
 
     # Developer API key
     API_KEY= "vkC0ujXxFu5l9v5zvct794_H8c-wqPjE2DFWY1y8cjlWVTVhx2BMoBK-A2Y5LYutYW58NNX900fwkG3Qr8Vke8BT1f7ybMpYr82wfvsKD0DF0RVkf-ljxmFds4jUXHYx"
 
+    info = user_info(ip)
 
     # What you are searching for
     DEFAULT_TERM = 'contraceptives'
-    # Business location
-    DEFAULT_LOCATION = 'San Jose, CA'
+
+    # Coordinates
+    LATITUDE = info['latitude']
+    LONGITUDE = info['longitude']
+
     # Maximum number of results to return
     SEARCH_LIMIT = 5
 
@@ -55,7 +57,8 @@ def businesses():
     # Search parameters
     url_params = {
       'term': DEFAULT_TERM,
-      'location': DEFAULT_LOCATION,
+      'longitude' : LONGITUDE,
+      'latitude' : LATITUDE,
       'limit': SEARCH_LIMIT
       }
 
