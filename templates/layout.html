@@ -38,11 +38,6 @@
             opacity: 0.5;
           }
 
-          #number {
-            text-decoration: none;
-            color: white;
-            font-size: 6pt;
-          }
 
           .popover-content {
             min-width: 180px;
@@ -56,8 +51,8 @@
 
 
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="grey">Find</span>
-            <span class="firebrick">Sexual</span><span class="blue">HealthCare</span></a>
+            <div class="navbar-brand"><span class="grey">Find</span>
+            <span class="firebrick">Sexual</span><span class="blue">HealthCare</span></div>
             <span class="navbar-text">
               SW24
             </span>
@@ -81,9 +76,6 @@
 
     <div style="display: none;">
 
-      {% for business in businesses %}
-        <h1 class="overlay" id="number{{loop.index}}" target="_blank">{{loop.index}}</h1>
-      {% endfor %}
 
       {% for business in businesses %}
         <div id="marker{{loop.index}}" title="Marker"></div>
@@ -165,12 +157,7 @@
         });
         map.addOverlay(marker);
 
-        // Vienna label
-        var number = new Overlay({
-          position: fromLonLat([{{business["coordinates"]["longitude"]}}, {{business["coordinates"]["latitude"]}}]),
-          element: document.getElementById('number{{loop.index}}')
-        });
-        map.addOverlay(number);
+
       {% endfor %}
 
       var geolocation = new Geolocation({
