@@ -38,7 +38,7 @@
             opacity: 0.5;
           }
 
-          #vienna {
+          #number {
             text-decoration: none;
             color: white;
             font-size: 11pt;
@@ -55,10 +55,7 @@
     <body>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="blue">C</span><span class="red">$</span><span class="yellow">5</span><span class="green">0</span> <span class="red">Finance</span></a>
-            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="/"><span class="blue">FindSexualHealthCare</span></a>
         </nav>
 
         {% if get_flashed_messages() %}
@@ -76,9 +73,10 @@
 
 
     <div style="display: none;">
-      <!-- Clickable label for Vienna -->
-      <h1 class="overlay" id="vienna" target="_blank">Vienna</h1>
 
+      {% for business in businesses %}
+        <h1 class="overlay" id="number{{loop.index}}" target="_blank">{{loop.index}}</h1>
+      {% endfor %}
 
       {% for business in businesses %}
         <div id="marker{{loop.index}}" title="Marker"></div>
@@ -88,18 +86,42 @@
 
 
 
-    <ul>
-    {% for business in businesses %}
-        <li>
-          {{ business["name"] }}
-        </li>
-    {% endfor %}
-    <ul>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Open</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for business in businesses %}
+            <tr>
+              <th scope="row">{{loop.index}}</th>
+              <td>{{business["name"]}}</td>
+              <td>{{business["location"]["address1"]}}</td>
+              <td>{{business["display_phone"]}}</td>
+              <td>{% if business["hours"]["is_open_now"] %}
+                        Yes
+                  {% else %}
+                        No
+                  {% endif %}
+              </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+
 
 
 
     <script>
-
 
       var Feature = ol.Feature;
       var Geolocation = ol.Geolocation;
@@ -133,16 +155,6 @@
         view: view
       });
 
-
-
-
-
-      ///////////////////////////
-
-
-
-
-
       {% for business in businesses %}
         var marker = new Overlay({
           position: fromLonLat([{{business["coordinates"]["longitude"]}}, {{business["coordinates"]["latitude"]}}]),
@@ -151,37 +163,14 @@
           stopEvent: false
         });
         map.addOverlay(marker);
+
+        // Vienna label
+        var number = new Overlay({
+          position: fromLonLat([{{business["coordinates"]["longitude"]}}, {{business["coordinates"]["latitude"]}}]),
+          element: document.getElementById('number{{loop.index}}')
+        });
+        map.addOverlay(number);
       {% endfor %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // Vienna label
-      var vienna = new Overlay({
-        position: fromLonLat([16.3725, 48.208889]),
-        element: document.getElementById('vienna')
-      });
-      map.addOverlay(vienna);
-
-      ///////////////////////////////
-
-
-
-
-
-
-
-
 
       var geolocation = new Geolocation({
         // enableHighAccuracy must be set to true to have the heading value.
