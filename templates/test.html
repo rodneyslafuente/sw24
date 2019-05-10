@@ -17,14 +17,7 @@
         background-color: #0FF;
         opacity: 0.5;
       }
-      #user {
-        width: 20px;
-        height: 20px;
-        border: 1px solid #F00;
-        border-radius: 10px;
-        background-color: #F00;
-        opacity: 0.5;
-      }
+
       #vienna {
         text-decoration: none;
         color: white;
@@ -45,30 +38,14 @@
 
     <div style="display: none;">
       <!-- Clickable label for Vienna -->
-      <a class="overlay" id="vienna" target="_blank" href="http://en.wikipedia.org/wiki/Vienna">Vienna</a>
-      <div id="user" title="Marker"></div>
+      <h1 class="overlay" id="vienna" target="_blank">Vienna</h1>
+
 
       {% for business in businesses %}
         <div id="marker{{loop.index}}" title="Marker"></div>
       {% endfor %}
 
     </div>
-
-
-
-
-    <div id="info" style="display: none;"></div>
-    <label for="track">
-      track position
-      <input id="track" type="checkbox"/>
-    </label>
-    <p>
-      position accuracy : <code id="accuracy"></code>&nbsp;&nbsp;
-      altitude : <code id="altitude"></code>&nbsp;&nbsp;
-      altitude accuracy : <code id="altitudeAccuracy"></code>&nbsp;&nbsp;
-      heading : <code id="heading"></code>&nbsp;&nbsp;
-      speed : <code id="speed"></code>
-    </p>
 
 
 
@@ -124,14 +101,6 @@
       ///////////////////////////
 
 
-      // Vienna marker
-      var marker = new Overlay({
-        position: fromLonLat([{{longitude}},{{latitude}}]),
-        positioning: 'center-center',
-        element: document.getElementById('user'),
-        stopEvent: false
-      });
-      map.addOverlay(marker);
 
 
 
@@ -187,18 +156,7 @@
         return document.getElementById(id);
       }
 
-      el('track').addEventListener('change', function() {
-        geolocation.setTracking(this.checked);
-      });
-
-      // update the HTML page when the position changes.
-      geolocation.on('change', function() {
-        el('accuracy').innerText = geolocation.getAccuracy() + ' [m]';
-        el('altitude').innerText = geolocation.getAltitude() + ' [m]';
-        el('altitudeAccuracy').innerText = geolocation.getAltitudeAccuracy() + ' [m]';
-        el('heading').innerText = geolocation.getHeading() + ' [rad]';
-        el('speed').innerText = geolocation.getSpeed() + ' [m/s]';
-      });
+      geolocation.setTracking(true);
 
       // handle geolocation error.
       geolocation.on('error', function(error) {

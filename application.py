@@ -35,7 +35,7 @@ def index():
     latitude = user['latitude']
     longitude = user['longitude']
 
-    return render_template("test.html", businesses=businesses(longitude, latitude), longitude=longitude, latitude=latitude )
+    return render_template("test.html", businesses=businesses(longitude, latitude))
 
 
 def errorhandler(e):
