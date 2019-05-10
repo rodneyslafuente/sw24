@@ -17,6 +17,14 @@
         background-color: #0FF;
         opacity: 0.5;
       }
+      #user {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #F00;
+        border-radius: 10px;
+        background-color: #F00;
+        opacity: 0.5;
+      }
       #vienna {
         text-decoration: none;
         color: white;
@@ -38,7 +46,7 @@
     <div style="display: none;">
       <!-- Clickable label for Vienna -->
       <a class="overlay" id="vienna" target="_blank" href="http://en.wikipedia.org/wiki/Vienna">Vienna</a>
-      <div id="marker" title="Marker"></div>
+      <div id="user" title="Marker"></div>
 
       {% for business in businesses %}
         <div id="marker{{loop.index}}" title="Marker"></div>
@@ -118,9 +126,9 @@
 
       // Vienna marker
       var marker = new Overlay({
-        position: fromLonLat([16.3725, 48.208889]),
+        position: fromLonLat([{{longitude}},{{latitude}}]),
         positioning: 'center-center',
-        element: document.getElementById('marker3'),
+        element: document.getElementById('user'),
         stopEvent: false
       });
       map.addOverlay(marker);

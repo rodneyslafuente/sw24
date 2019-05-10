@@ -33,19 +33,14 @@ def user_info(ip):
     return response.json()
 
 
-def businesses(ip):
+def businesses(longitude, latitude):
 
     # Developer API key
     API_KEY= "vkC0ujXxFu5l9v5zvct794_H8c-wqPjE2DFWY1y8cjlWVTVhx2BMoBK-A2Y5LYutYW58NNX900fwkG3Qr8Vke8BT1f7ybMpYr82wfvsKD0DF0RVkf-ljxmFds4jUXHYx"
 
-    info = user_info(ip)
-
     # What you are searching for
     DEFAULT_TERM = 'contraceptives'
 
-    # Coordinates
-    LATITUDE = info['latitude']
-    LONGITUDE = info['longitude']
 
     # Maximum number of results to return
     SEARCH_LIMIT = 5
@@ -57,8 +52,8 @@ def businesses(ip):
     # Search parameters
     url_params = {
       'term': DEFAULT_TERM,
-      'longitude' : LONGITUDE,
-      'latitude' : LATITUDE,
+      'longitude' : longitude,
+      'latitude' : latitude,
       'limit': SEARCH_LIMIT
       }
 
