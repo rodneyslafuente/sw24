@@ -6,9 +6,49 @@
 
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
 
+
+
+    <style>
+      [id^="marker"] {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #088;
+        border-radius: 10px;
+        background-color: #0FF;
+        opacity: 0.5;
+      }
+      #vienna {
+        text-decoration: none;
+        color: white;
+        font-size: 11pt;
+        font-weight: bold;
+        text-shadow: black 0.1em 0.1em 0.2em;
+      }
+      .popover-content {
+        min-width: 180px;
+      }
+    </style>
+
   </head>
   <body>
+
     <div id="map" class="map"></div>
+
+
+    <div style="display: none;">
+      <!-- Clickable label for Vienna -->
+      <a class="overlay" id="vienna" target="_blank" href="http://en.wikipedia.org/wiki/Vienna">Vienna</a>
+      <div id="marker" title="Marker"></div>
+
+      {% for business in businesses %}
+        <div id="marker{{loop.index}}" title="Marker"></div>
+      {% endfor %}
+
+    </div>
+
+
+
+
     <div id="info" style="display: none;"></div>
     <label for="track">
       track position
@@ -21,6 +61,20 @@
       heading : <code id="heading"></code>&nbsp;&nbsp;
       speed : <code id="speed"></code>
     </p>
+
+
+
+    <ul>
+    {% for business in businesses %}
+        <li>
+          {{ business["name"] }}
+        </li>
+    {% endfor %}
+    <ul>
+
+    {{ info }}
+
+
     <script>
 
 
@@ -37,6 +91,9 @@
       var Fill = ol.style.Fill;
       var Stroke = ol.style.Stroke;
       var Style = ol.style.Style;
+      var Overlay = ol.Overlay
+      var fromLonLat = ol.proj.fromLonLat;
+
 
       var view = new View({
         center: [0, 0],
@@ -52,6 +109,64 @@
         target: 'map',
         view: view
       });
+
+
+
+
+
+      ///////////////////////////
+
+
+      // Vienna marker
+      var marker = new Overlay({
+        position: fromLonLat([16.3725, 48.208889]),
+        positioning: 'center-center',
+        element: document.getElementById('marker3'),
+        stopEvent: false
+      });
+      map.addOverlay(marker);
+
+
+
+      {% for business in businesses %}
+        var marker = new Overlay({
+          position: fromLonLat([{{business["coordinates"]["longitude"]}}, {{business["coordinates"]["latitude"]}}]),
+          positioning: 'center-center',
+          element: document.getElementById('marker{{loop.index}}'),
+          stopEvent: false
+        });
+        map.addOverlay(marker);
+      {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // Vienna label
+      var vienna = new Overlay({
+        position: fromLonLat([16.3725, 48.208889]),
+        element: document.getElementById('vienna')
+      });
+      map.addOverlay(vienna);
+
+      ///////////////////////////////
+
+
+
+
+
+
+
+
 
       var geolocation = new Geolocation({
         // enableHighAccuracy must be set to true to have the heading value.

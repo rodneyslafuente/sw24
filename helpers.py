@@ -19,25 +19,52 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
+def coordinates(ip):
 
-def lookup(symbol):
-    """Look up quote for symbol."""
+    # Developer API key
+    API_KEY= "e7d27372397245e956a5f33fe266d281"
 
-    # Contact API
-    try:
-        response = requests.get(f"https://api.iextrading.com/1.0/stock/{urllib.parse.quote_plus(symbol)}/quote")
-        response.raise_for_status()
-    except requests.RequestException:
-        return None
 
-    # Parse response
-    try:
-        quote = response.json()
-        return {
-            "name": quote["companyName"],
-            "price": float(quote["latestPrice"]),
-            "symbol": quote["symbol"]
-        }
-    except (KeyError, TypeError, ValueError):
-        return None
+    # location search end point
+    url = 'http://api.ipstack.com/' + ip + '?access_key=' + API_KEY
+
+
+    # Call the API
+    response = requests.request('GET', url)
+
+    return response.json()
+
+
+def businesses():
+
+    # Developer API key
+    API_KEY= "vkC0ujXxFu5l9v5zvct794_H8c-wqPjE2DFWY1y8cjlWVTVhx2BMoBK-A2Y5LYutYW58NNX900fwkG3Qr8Vke8BT1f7ybMpYr82wfvsKD0DF0RVkf-ljxmFds4jUXHYx"
+
+
+    # What you are searching for
+    DEFAULT_TERM = 'contraceptives'
+    # Business location
+    DEFAULT_LOCATION = 'San Jose, CA'
+    # Maximum number of results to return
+    SEARCH_LIMIT = 5
+
+    # Business search end point
+    url = 'https://api.yelp.com/v3/businesses/search'
+    # Heahder should contain the API key
+    headers = {'Authorization': 'Bearer {}'.format(API_KEY)}
+    # Search parameters
+    url_params = {
+      'term': DEFAULT_TERM,
+      'location': DEFAULT_LOCATION,
+      'limit': SEARCH_LIMIT
+      }
+
+    # Call the API
+    response = requests.request('GET', url, headers=headers, params=url_params)
+
+    # To get a better understanding of the structure of
+    # the returned JSON object refer to the documentation
+    # For each business, print name, rating, location and phone
+    return response.json()["businesses"]
+
 

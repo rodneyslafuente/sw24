@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, lookup
+from helpers import apology, businesses, coordinates
 
 import json
 
@@ -26,7 +26,14 @@ def after_request(response):
 @app.route("/")
 def index():
 
-        return render_template("test.html")
+    if request.headers.getlist("X-Forwarded-For"):
+       ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+       ip = request.remote_addr
+
+    info = coordinates(ip)
+
+    return render_template("test.html", businesses=businesses(), info=info)
 
 
 def errorhandler(e):
