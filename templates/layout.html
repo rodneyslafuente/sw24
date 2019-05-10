@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://bootswatch.com/4/darkly/bootstrap.min.css" rel="stylesheet">
 
         <!-- https://favicon.io/emoji-favicons/money-mouth-face/ -->
         <link href="/static/favicon.ico" rel="icon">
@@ -41,10 +41,9 @@
           #number {
             text-decoration: none;
             color: white;
-            font-size: 11pt;
-            font-weight: bold;
-            text-shadow: black 0.1em 0.1em 0.2em;
+            font-size: 6pt;
           }
+
           .popover-content {
             min-width: 180px;
           }
@@ -57,7 +56,11 @@
 
 
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="blue">FindSexualHealthCare</span></a>
+            <a class="navbar-brand" href="/"><span class="grey">Find</span>
+            <span class="firebrick">Sexual</span><span class="blue">HealthCare</span></a>
+            <span class="navbar-text">
+              SW24
+            </span>
         </nav>
 
         {% if get_flashed_messages() %}
@@ -91,7 +94,7 @@
 
 
 
-    <table class="table">
+    <table class="table-dark">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -227,7 +230,7 @@
         </main>
 
         <footer class="small text-center text-muted">
-            Data provided for free by <a href="https://iextrading.com/developer">IEX</a>. View <a href="https://iextrading.com/api-exhibit-a/">IEX’s Terms of Use</a>.
+            Data provided for free by <a href="yelp">Yelp</a>.
         </footer>
 
     </body>

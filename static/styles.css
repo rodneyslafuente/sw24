@@ -5,14 +5,21 @@ nav .navbar-brand
 }
 
 /* colors for brand */
-nav .navbar-brand .gray
+nav .navbar-brand .firebrick
 {
-    color: #868e96;
+    color: #B22222;
 }
-nav .navbar-brand .red
+
+nav .navbar-brand .blue
 {
-    color: #ea433b;
+    color: #008080;
 }
+
+nav .navbar-brand .grey
+{
+    color: #808080;
+}
+
 
 
 main .form-control
