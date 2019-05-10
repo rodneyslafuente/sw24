@@ -54,6 +54,8 @@
 
     <body>
 
+
+
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
             <a class="navbar-brand" href="/"><span class="blue">FindSexualHealthCare</span></a>
         </nav>
@@ -69,6 +71,8 @@
         <main class="container p-5">
             <body>
 
+
+              {{ businesses }}
     <div id="map" class="map"></div>
 
 
@@ -94,7 +98,7 @@
           <th scope="col">Name</th>
           <th scope="col">Address</th>
           <th scope="col">Phone</th>
-          <th scope="col">Open</th>
+
         </tr>
       </thead>
       <tbody>
@@ -104,13 +108,7 @@
               <td>{{business["name"]}}</td>
               <td>{{business["location"]["address1"]}}</td>
               <td>{{business["display_phone"]}}</td>
-              <td>{% if business["hours"]["is_open_now"] %}
-                        Yes
-                  {% else %}
-                        No
-                  {% endif %}
-              </td>
-            </tr>
+
         {% endfor %}
       </tbody>
     </table>
