@@ -19,18 +19,6 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
-def user_info(ip):
-
-    # Developer API key
-    API_KEY= "e7d27372397245e956a5f33fe266d281"
-
-    # location search end point
-    url = 'http://api.ipstack.com/' + ip + '?access_key=' + API_KEY
-
-    # Call the API
-    response = requests.request('GET', url)
-
-    return response.json()
 
 
 def businesses(longitude, latitude):
