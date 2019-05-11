@@ -45,8 +45,12 @@ def businesses(longitude, latitude):
       'limit': SEARCH_LIMIT
       }
 
+
     # Call the API
     response = requests.request('GET', url, headers=headers, params=url_params)
+    print('called')
+
+    print(response)
 
     # To get a better understanding of the structure of
     # the returned JSON object refer to the documentation

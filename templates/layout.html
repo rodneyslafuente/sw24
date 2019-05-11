@@ -181,11 +181,17 @@
 
       geolocation.on('change:position', function() {
         var coordinates = geolocation.getPosition();
-
-        $.get(
-            "/",
-            { lon: coordinates[0], lat: coordinates[1] }
+        navigator.geolocation.watchPosition(geo_success);
+        function geo_success(position) {
+          var lon =  position.coords.longitude;
+          var lat =  position.coords.latitude;
+          $.get(
+            "/result",
+            { lon: lon, lat: lat}
           )
+        }
+
+
         view.setCenter(coordinates); view.setZoom(14);
         positionFeature.setGeometry(coordinates ?
           new Point(coordinates) : null);
@@ -199,6 +205,8 @@
           features: [accuracyFeature, positionFeature]
         })
       });
+
+
     </script>
   </body>
         </main>

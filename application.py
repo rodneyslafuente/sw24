@@ -25,10 +25,13 @@ def after_request(response):
 
 @app.route("/")
 def index():
+    return render_template("apology.html")
 
-    latitude = request.args.get('lon')
-    longitude = request.args.get('lat')
-
+@app.route("/result")
+def result():
+    longitude = request.args.get('lon')
+    latitude = request.args.get('lat')
+    print(longitude)
     return render_template("layout.html", businesses=businesses(longitude, latitude))
 
 
