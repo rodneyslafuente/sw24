@@ -72,7 +72,7 @@
     <table class="table-dark" class="table-responsive table-body">
       <thead>
         <tr>
-          <th scope="col">#</th>
+
           <th scope="col">Name</th>
           <th scope="col">Address</th>
           <th scope="col">Phone</th>
@@ -82,7 +82,6 @@
       <tbody>
         {% for business in businesses %}
             <tr>
-              <th scope="row">{{loop.index}}</th>
               <td>{{business["name"]}}</td>
               <td>{{business["location"]["address1"]}}</td>
               <td>{{business["display_phone"]}}</td>
@@ -114,6 +113,8 @@
         center: [0, 0],
         zoom: 2
       });
+
+
 
       var map = new Map({
         layers: [
@@ -177,9 +178,14 @@
 
       geolocation.on('change:position', function() {
         var coordinates = geolocation.getPosition();
+
+        view.setCenter(coordinates); view.setZoom(14);
+
         positionFeature.setGeometry(coordinates ?
           new Point(coordinates) : null);
       });
+
+
 
       new VectorLayer({
         map: map,
