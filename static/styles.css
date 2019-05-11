@@ -20,7 +20,11 @@ nav .navbar-brand .grey
     color: #808080;
 }
 
-
+main table
+{
+    width: 100%;
+    height: 100%;
+}
 
 main .form-control
 {
@@ -61,4 +65,16 @@ label {
 }
 
 
+[id^="marker"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #088;
+    border-radius: 10px;
+    background-color: #0FF;
+    opacity: 0.5;
+}
 
+
+.popover-content {
+    min-width: 180px;
+}
