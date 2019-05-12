@@ -181,15 +181,7 @@
 
       geolocation.on('change:position', function() {
         var coordinates = geolocation.getPosition();
-        navigator.geolocation.watchPosition(geo_success);
-        function geo_success(position) {
-          var lon =  position.coords.longitude;
-          var lat =  position.coords.latitude;
-          $.get(
-            "/result",
-            { lon: lon, lat: lat}
-          )
-        }
+
 
 
         view.setCenter(coordinates); view.setZoom(14);

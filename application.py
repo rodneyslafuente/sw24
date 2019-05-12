@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, businesses
+from helpers import apology, businesses, user_info
 
 import json
 
@@ -25,15 +25,17 @@ def after_request(response):
 
 @app.route("/")
 def index():
-    return render_template("apology.html")
 
-@app.route("/result")
-def result():
-    longitude = request.args.get('lon')
-    latitude = request.args.get('lat')
-    print(longitude)
+    if request.headers.getlist("X-Forwarded-For"):
+       ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+       ip = request.remote_addr
+
+    user = user_info(ip)
+    latitude = user['latitude']
+    longitude = user['longitude']
+
     return render_template("layout.html", businesses=businesses(longitude, latitude))
-
 
 def errorhandler(e):
     """Handle error"""
