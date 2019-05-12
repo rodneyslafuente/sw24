@@ -10,7 +10,6 @@ def apology(message, code=400):
     def escape(s):
         """
         Escape special characters.
-
         https://github.com/jacebrowning/memegen#special-characters
         """
         for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
@@ -19,6 +18,18 @@ def apology(message, code=400):
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
+def user_info(ip):
+
+    # Developer API key
+    API_KEY= "e7d27372397245e956a5f33fe266d281"
+
+    # location search end point
+    url = 'http://api.ipstack.com/' + ip + '?access_key=' + API_KEY
+
+    # Call the API
+    response = requests.request('GET', url)
+
+    return response.json()
 
 
 def businesses(longitude, latitude):
@@ -45,16 +56,10 @@ def businesses(longitude, latitude):
       'limit': SEARCH_LIMIT
       }
 
-
     # Call the API
     response = requests.request('GET', url, headers=headers, params=url_params)
-    print('called')
-
-    print(response)
 
     # To get a better understanding of the structure of
     # the returned JSON object refer to the documentation
     # For each business, print name, rating, location and phone
     return response.json()["businesses"]
-
-
