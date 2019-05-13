@@ -179,12 +179,21 @@
         })
       }));
 
+
+      var zoomtoposition = (function() {
+          var executed = false;
+          return function() {
+              if (!executed) {
+                  executed = true;
+                  view.setCenter(coordinates); view.setZoom(14);
+              }
+          };
+      })();
+
+
       geolocation.on('change:position', function() {
         var coordinates = geolocation.getPosition();
-
-
-
-        view.setCenter(coordinates); view.setZoom(14);
+        zoomtoposition;
         positionFeature.setGeometry(coordinates ?
           new Point(coordinates) : null);
       });
